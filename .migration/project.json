@@ -1,9 +1,11 @@
 {
+  "type": "da",
   "sites": {
     "ema-capstone-2026": {
       "previewOrg": "abhishekarora801",
       "previewSite": "ema-capstone-2026",
-      "contentHostUrl": "https://content.da.live/abhishekarora801/ema-capstone-2026/"
+      "contentHostUrl": "https://content.da.live/abhishekarora801/ema-capstone-2026/",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
     }
   },
   "features": [

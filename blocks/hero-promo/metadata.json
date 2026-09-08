@@ -1,0 +1,37 @@
+{
+  "variantName": "hero-promo",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-09-08T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wknd.site/us/en.html",
+    "originPage": "WKND US/EN homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + heading + description + CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "mid-page promotional banners with full-bleed image and overlaid content card",
+      "single call-to-action feature with heading + body + link over an image"
+    ],
+    "notSuitableFor": [
+      "rotating multi-slide promos (use carousel-hero)",
+      "repeating grid items (use cards-teaser)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-08T00:00:00.000Z"
+  }
+}
