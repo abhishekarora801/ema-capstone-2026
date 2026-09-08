@@ -1,0 +1,51 @@
+{
+  "sourceUrl": "https://www.wknd.site/us/en.html",
+  "scope": "us/en",
+  "extractionMethod": "direct-stylesheet-parse (clientlib-site.css)",
+  "fonts": {
+    "body": {
+      "family": "Source Sans Pro",
+      "familySet": "\"Source Sans Pro\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+    },
+    "heading": {
+      "family": "Asar",
+      "familySet": "\"Asar\", Georgia, \"Times New Roman\", Times, serif"
+    },
+    "headingWeight": "400",
+    "boldWeight": "600",
+    "headingSizes": {
+      "xxl": { "desktop": "40px", "mobile": "32px" },
+      "xl": { "desktop": "36px", "mobile": "28px" },
+      "l": { "desktop": "24px", "mobile": "22px" },
+      "m": { "desktop": "16px", "mobile": "16px" },
+      "s": { "desktop": "14px", "mobile": "14px" },
+      "xs": { "desktop": "10px", "mobile": "10px" }
+    },
+    "sources": {
+      "typekit": null,
+      "googleFonts": [
+        "https://fonts.googleapis.com/css2?family=Asar&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+      ]
+    }
+  },
+  "colors": {
+    "background": "#ffffff",
+    "text": "#202020",
+    "link": "#0045ff",
+    "linkHover": "#0045ff",
+    "accent": "#ffea00",
+    "light": "#f7f7f7",
+    "inverse": "#ebebeb",
+    "dark": "#202020"
+  },
+  "spacing": {
+    "sectionPadding": "40px",
+    "contentMaxWidth": "1024px",
+    "navHeight": "64px",
+    "headingMarginTop": "27px",
+    "headingMarginBottom": "13.5px"
+  },
+  "favicons": [
+    { "url": "https://www.wknd.site/favicon.ico", "rel": "icon" }
+  ]
+}

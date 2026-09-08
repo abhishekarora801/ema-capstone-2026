@@ -1,0 +1,49 @@
+{
+  "analysis-summary": {
+    "status": "complete",
+    "metadata": {
+      "siteUrl": "https://www.wknd.site/us/en.html",
+      "siteName": "www.wknd.site",
+      "analysisDate": "2026-09-08"
+    },
+    "metrics": {
+      "urlDiscoveryMethod": "crawl",
+      "totalPages": 64,
+      "localeCount": 5,
+      "locales": [
+        {
+          "locale": "en",
+          "pages": 55
+        },
+        {
+          "locale": "es",
+          "pages": 2
+        },
+        {
+          "locale": "fr",
+          "pages": 3
+        },
+        {
+          "locale": "de",
+          "pages": 2
+        },
+        {
+          "locale": "it",
+          "pages": 2
+        }
+      ],
+      "totalTemplates": 6,
+      "totalBlockTypes": 31,
+      "unknownBlockVariants": 7,
+      "edsBlockVariants": 24,
+      "pagesAnalyzed": 64,
+      "percentAnalyzed": 100,
+      "pagesPending": 0,
+      "pagesFailed": 0,
+      "blockDetectionCrashes": 0
+    },
+    "errors": {
+      "totalCount": 1
+    }
+  }
+}
