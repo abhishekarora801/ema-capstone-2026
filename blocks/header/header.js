@@ -207,8 +207,17 @@ export default async function decorate(block) {
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
+    const currentPath = window.location.pathname.replace(/\.html$/, '').replace(/\/$/, '');
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
+      // Highlight the tab for the current page (source shows a yellow active tab).
+      const link = navSection.querySelector('a');
+      if (link) {
+        const linkPath = new URL(link.href, window.location).pathname.replace(/\.html$/, '').replace(/\/$/, '');
+        if (linkPath && (currentPath === linkPath || currentPath.startsWith(`${linkPath}/`))) {
+          navSection.classList.add('nav-active');
+        }
+      }
       navSection.addEventListener('click', () => {
         if (isDesktop.matches) {
           const expanded = navSection.getAttribute('aria-expanded') === 'true';
