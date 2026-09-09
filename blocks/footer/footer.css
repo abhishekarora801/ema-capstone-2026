@@ -30,15 +30,23 @@ footer .footer a:hover {
   text-decoration: underline;
 }
 
+/* Inline links inside the legal/description paragraphs are underlined so they
+   are distinguishable from the surrounding body text (matches the source). */
+footer .footer-legal a:any-link {
+  text-decoration: underline;
+}
+
 /* Brand logo */
 footer .footer-brand img {
   width: 120px;
   height: auto;
 }
 
-/* Follow Us heading */
+/* Follow Us heading — force light color; the global h1-h6 rule sets a dark
+   text color that would otherwise make it invisible on the dark footer. */
 footer .footer-social h3 {
   margin: 0 0 12px;
+  color: var(--light-color);
   font-size: var(--body-font-size-s);
 }
 
