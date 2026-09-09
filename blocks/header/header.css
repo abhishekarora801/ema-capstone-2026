@@ -282,6 +282,12 @@ header nav .nav-search input:focus-visible {
   header nav[aria-expanded='true'] {
     display: grid;
 
+    /* Gutter that indents header content to a centered container (matching the
+       source, where the logo lines up with the page content rather than the
+       viewport edge). The utility bar stays full-bleed; only its inner content
+       uses the gutter. */
+    --header-gutter: max(32px, calc((100vw - 1264px) / 2));
+
     /* Taller main row than --nav-height so the logo has breathing room and
        sits vertically centered, matching the source header. */
     grid-template:
@@ -304,7 +310,7 @@ header nav .nav-search input:focus-visible {
     gap: 24px;
     background-color: var(--dark-color);
     color: var(--background-color);
-    padding: 8px 32px;
+    padding: 8px var(--header-gutter);
     font-size: var(--body-font-size-xs);
   }
 
@@ -317,11 +323,11 @@ header nav .nav-search input:focus-visible {
   }
 
   header nav .nav-brand {
-    padding-left: 32px;
+    padding-left: var(--header-gutter);
   }
 
   header nav .nav-tools {
-    padding-right: 32px;
+    padding-right: var(--header-gutter);
   }
 
   header nav .nav-hamburger {
