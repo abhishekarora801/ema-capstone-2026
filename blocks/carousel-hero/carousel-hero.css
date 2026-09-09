@@ -29,7 +29,11 @@
   justify-content: center;
   position: relative;
   width: 100%;
-  min-height: min(50vw, calc(100dvh - var(--header-height)));
+
+  /* Fallback for --header-height: when undefined the calc() (and the whole
+     min()) is invalid, collapsing the slide to 0 height once the caption
+     overlay is hidden. The fallback keeps the image-only slide tall. */
+  min-height: min(50vw, calc(100dvh - var(--header-height, 64px)));
 }
 
 .carousel-hero .carousel-hero-slide:has(.carousel-hero-slide-content[data-align='center']) {
@@ -61,6 +65,12 @@
   width: var(--slide-content-width, auto);
 }
 
+/* Suppress the caption overlay when the slide has no caption text
+   (e.g. image-only carousels) so no empty dark box floats over the image. */
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-content:empty {
+  display: none;
+}
+
 .carousel-hero .carousel-hero-slide-indicators {
   display: flex;
   flex-wrap: wrap;
@@ -87,39 +97,40 @@
   background-color: var(--text-color);
 }
 
+/* Arrows sit at the bottom-right, below the image (matching the WKND source),
+   rather than as dark circles vertically centered over the image. */
 .carousel-hero .carousel-hero-navigation-buttons {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 12px;
+  bottom: 12px;
   right: 12px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 16px;
   z-index: 1;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .carousel-hero .carousel-hero-navigation-buttons button {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 32px;
+  height: 32px;
   margin: 0;
-  border-radius: 50%;
+  border-radius: 0;
   padding: 0;
-  background-color: rgb(19 19 19 / 25%);
-  transition: background-color 0.2s;
+  background-color: transparent;
+  transition: opacity 0.2s;
 }
 
 .carousel-hero .carousel-hero-navigation-buttons button:hover,
 .carousel-hero .carousel-hero-navigation-buttons button:focus-visible {
-  background-color: rgb(19 19 19 / 75%);
+  background-color: transparent;
+  opacity: 0.6;
 }
 
 .carousel-hero .carousel-hero-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid;
+  border: 2px solid var(--text-color);
   border-bottom: 0;
   border-left: 0;
   height: 12px;
@@ -137,8 +148,8 @@
 
 @media (width >= 600px) {
   .carousel-hero .carousel-hero-navigation-buttons {
-    left: 24px;
     right: 24px;
+    bottom: 16px;
   }
 
   .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
