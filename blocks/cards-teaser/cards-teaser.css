@@ -25,22 +25,32 @@
   object-fit: cover;
 }
 
+/* Card is a single link — keep text in the card color, not link-blue */
+.cards-teaser > ul > li > a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
 /* Title: uppercase bold black, on its own line (not an inline blue link) */
-.cards-teaser .cards-teaser-card-body a {
+.cards-teaser .cards-teaser-card-body a,
+.cards-teaser .cards-teaser-card-title {
   display: block;
+  margin: 0;
   color: var(--text-color);
   font-weight: var(--bold-font-weight);
   text-transform: uppercase;
   text-decoration: none;
 }
 
-/* Description: single-line truncation with ellipsis */
+/* Description: clamped to 3 lines with ellipsis */
 .cards-teaser .cards-teaser-card-description {
   margin: 8px 0 0;
   color: var(--text-color);
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 
 @media (width >= 600px) {
