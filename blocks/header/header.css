@@ -173,6 +173,8 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 /* brand */
 header .nav-brand {
   grid-area: brand;
+  display: flex;
+  align-items: center;
   flex-basis: 128px;
   font-size: var(--heading-font-size-s);
   font-weight: 700;
@@ -182,6 +184,12 @@ header .nav-brand {
 header nav .nav-brand img {
   width: 128px;
   height: auto;
+}
+
+@media (width >= 900px) {
+  header nav .nav-brand img {
+    width: 160px;
+  }
 }
 
 /* sections */
@@ -273,9 +281,12 @@ header nav .nav-search input:focus-visible {
   header nav,
   header nav[aria-expanded='true'] {
     display: grid;
+
+    /* Taller main row than --nav-height so the logo has breathing room and
+       sits vertically centered, matching the source header. */
     grid-template:
       'utility utility utility' auto
-      'brand sections tools' var(--nav-height) / auto 1fr auto;
+      'brand sections tools' 120px / auto 1fr auto;
     gap: 0 32px;
     max-width: unset;
     height: auto;
@@ -330,14 +341,34 @@ header nav .nav-search input:focus-visible {
 
   header nav .nav-sections .default-content-wrapper > ul {
     display: flex;
+    align-items: stretch;
     justify-content: flex-end;
-    gap: 32px;
+    gap: 0;
     margin: 0;
+    height: 120px;
   }
 
+  /* Nav items render as full-height tabs (source uses a yellow highlight on
+     the current/hovered tab, not a plain link). */
   header nav .nav-sections .default-content-wrapper > ul > li {
     flex: 0 1 auto;
     position: relative;
+    display: flex;
+    align-items: center;
     text-transform: uppercase;
+    transition: background-color 0.2s;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px;
+    text-decoration: none;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li:hover,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-active {
+    background-color: var(--accent-color);
   }
 }
