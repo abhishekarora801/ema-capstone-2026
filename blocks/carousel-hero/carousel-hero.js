@@ -123,7 +123,9 @@ export default async function decorate(block) {
       <button type="button" class="slide-next" aria-label="Next Slide"></button>
     `;
 
-    container.append(slideNavButtons);
+    // Place the prev/next arrows in the indicator strip below the carousel
+    // (right-aligned) rather than overlaying the image — matches the source.
+    slideIndicatorsNav.append(slideNavButtons);
   }
 
   rows.forEach((row, idx) => {

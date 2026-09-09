@@ -106,23 +106,33 @@ main > .section > .carousel-hero-wrapper {
   display: none;
 }
 
+/* Controls strip below the carousel: dots centered, arrows right (source). */
+.carousel-hero nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px var(--header-gutter, 32px);
+}
+
 .carousel-hero .carousel-hero-slide-indicators {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 6px 12px;
-  padding: 12px;
-  background-color: var(--light-color);
+  margin: 0;
+  padding: 0;
   line-height: 0;
 }
 
 .carousel-hero .carousel-hero-slide-indicator button {
-  width: 24px;
-  height: 24px;
+  width: 12px;
+  height: 12px;
   margin: 0;
   padding: 0;
+  border: 1px solid var(--text-color);
   border-radius: 50%;
-  background-color: #dadada;
+  background-color: transparent;
   transition: background-color 0.2s;
 }
 
@@ -132,15 +142,16 @@ main > .section > .carousel-hero-wrapper {
   background-color: var(--text-color);
 }
 
-/* Arrows sit at the bottom-right, below the image (matching the WKND source),
-   rather than as dark circles vertically centered over the image. */
+/* Arrows sit at the far right of the controls strip, below the image
+   (matching the WKND source). */
 .carousel-hero .carousel-hero-navigation-buttons {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
+  top: 50%;
+  right: var(--header-gutter, 32px);
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   z-index: 1;
 }
 
@@ -183,11 +194,6 @@ main > .section > .carousel-hero-wrapper {
 }
 
 @media (width >= 600px) {
-  .carousel-hero .carousel-hero-navigation-buttons {
-    right: 24px;
-    bottom: 16px;
-  }
-
   .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
     --slide-content-width: calc((100% - 184px) / 2);
 
