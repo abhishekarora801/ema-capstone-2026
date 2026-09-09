@@ -1,5 +1,6 @@
 footer {
-  background-color: var(--light-color);
+  background-color: var(--dark-color);
+  color: var(--light-color);
   font-size: var(--body-font-size-xs);
 }
 
@@ -21,7 +22,7 @@ footer .footer ul {
 }
 
 footer .footer a:any-link {
-  color: var(--text-color);
+  color: var(--light-color);
   text-decoration: none;
 }
 
@@ -69,7 +70,7 @@ footer .footer-social-link svg {
 
 /* Legal / description block */
 footer .footer-legal {
-  color: var(--dark-color);
+  color: var(--light-color);
 }
 
 @media (width >= 900px) {
@@ -107,7 +108,7 @@ footer .footer-legal {
     grid-area: legal;
     margin-top: 32px;
     padding-top: 24px;
-    border-top: 1px solid #dadada;
+    border-top: 1px solid rgb(255 255 255 / 20%);
   }
 
   /* Nav items in a horizontal, uppercase row */
