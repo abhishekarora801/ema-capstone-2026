@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-article-links",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-09-09T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wknd.site/us/en/magazine/western-australia.html",
+    "originPage": "WKND magazine article (Western Australia)",
+    "blockPosition": "sidebar"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "related-links",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "linked title + publish date",
+    "buttonCount": 0,
+    "imageCount": 0,
+    "itemsTypical": 4
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "sidebar 'Up Next' / related-articles lists",
+      "text-only lists of linked titles with a date or short meta line",
+      "cross-link lists on article and detail pages"
+    ],
+    "notSuitableFor": [
+      "image-based teaser grids (use cards-teaser)",
+      "single featured item (use columns-featured)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/us/en/magazine/western-australia"],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-09T00:00:00.000Z",
+    "note": "Text-only related-articles list (title + date). Based on the Cards (no images) content model; each item is one row with a heading (linked title) and a paragraph (date)."
+  }
+}

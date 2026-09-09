@@ -7,11 +7,19 @@
         "https://wknd.site/ca/en/magazine.html",
         "https://wknd.site/ca/en/magazine/members-only.html",
         "https://wknd.site/us/en/about-us.html",
-        "https://wknd.site/us/en/magazine.html"
+        "https://wknd.site/us/en/magazine.html",
+        "https://www.wknd.site/us/en/about-us.html"
       ],
       "representativeUrl": "https://wknd.site/ca/en/about-us.html",
-      "description": "To be named in naming step",
-      "blocks": [],
+      "description": "WKND content page: title and headed sections of profile card grids",
+      "blocks": [
+        {
+          "name": "cards-profile",
+          "instances": [
+            ".experiencefragment.cmp-experience-fragment--contributor"
+          ]
+        }
+      ],
       "coverageGaps": [],
       "urlPattern": "/*"
     },
@@ -49,11 +57,31 @@
         "https://wknd.site/us/en/adventures/tahoe-skiing.html",
         "https://wknd.site/us/en/adventures/west-coast-cycling.html",
         "https://wknd.site/us/en/adventures/whistler-mountain-biking.html",
-        "https://wknd.site/us/en/adventures/yosemite-backpacking.html"
+        "https://wknd.site/us/en/adventures/yosemite-backpacking.html",
+        "https://www.wknd.site/us/en/adventures/bali-surf-camp.html"
       ],
       "representativeUrl": "https://wknd.site/ca/en/adventures/bali-surf-camp.html",
-      "description": "To be named in naming step",
-      "blocks": [],
+      "description": "WKND adventure detail: hero carousel, spec sidebar, tabbed content",
+      "blocks": [
+        {
+          "name": "carousel-hero",
+          "instances": [
+            ".carousel.cmp-carousel--mini"
+          ]
+        },
+        {
+          "name": "columns-adv-specs",
+          "instances": [
+            ".cmp-contentfragment"
+          ]
+        },
+        {
+          "name": "tabs-adventure",
+          "instances": [
+            ".tabs.panelcontainer"
+          ]
+        }
+      ],
       "coverageGaps": [],
       "urlPattern": "/*"
     },
@@ -61,11 +89,25 @@
       "name": "category-listing",
       "urls": [
         "https://wknd.site/ca/en/adventures.html",
-        "https://wknd.site/us/en/adventures.html"
+        "https://wknd.site/us/en/adventures.html",
+        "https://www.wknd.site/us/en/adventures.html"
       ],
       "representativeUrl": "https://wknd.site/ca/en/adventures.html",
-      "description": "To be named in naming step",
-      "blocks": [],
+      "description": "WKND category listing: hero banner over intro, filterable teaser card grid",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": [
+            ".teaser.cmp-teaser--hero"
+          ]
+        },
+        {
+          "name": "cards-teaser",
+          "instances": [
+            ".image-list.list"
+          ]
+        }
+      ],
       "coverageGaps": [],
       "urlPattern": "/*"
     },
@@ -73,11 +115,19 @@
       "name": "faq-page",
       "urls": [
         "https://wknd.site/ca/en/faqs.html",
-        "https://wknd.site/us/en/faqs.html"
+        "https://wknd.site/us/en/faqs.html",
+        "https://www.wknd.site/us/en/faqs.html"
       ],
       "representativeUrl": "https://wknd.site/ca/en/faqs.html",
-      "description": "To be named in naming step",
-      "blocks": [],
+      "description": "WKND FAQ support page: title, hero image, intro, accordion Q&A, contact sidebar",
+      "blocks": [
+        {
+          "name": "accordion-faq",
+          "instances": [
+            ".accordion.panelcontainer"
+          ]
+        }
+      ],
       "coverageGaps": [],
       "urlPattern": "/*"
     },
@@ -204,11 +254,19 @@
         "https://wknd.site/us/en/magazine/guide-la-skateparks.html",
         "https://wknd.site/us/en/magazine/san-diego-surf.html",
         "https://wknd.site/us/en/magazine/ski-touring.html",
-        "https://wknd.site/us/en/magazine/western-australia.html"
+        "https://wknd.site/us/en/magazine/western-australia.html",
+        "https://www.wknd.site/us/en/magazine/western-australia.html"
       ],
       "representativeUrl": "https://wknd.site/ca/en/magazine/arctic-surfing.html",
-      "description": "To be named in naming step",
-      "blocks": [],
+      "description": "WKND magazine long-form article: hero image, body copy, related-links sidebar",
+      "blocks": [
+        {
+          "name": "cards-article-links",
+          "instances": [
+            ".list.cmp-list--upnext"
+          ]
+        }
+      ],
       "coverageGaps": [],
       "urlPattern": "/*"
     }
