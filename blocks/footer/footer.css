@@ -53,12 +53,13 @@ footer .footer .footer-social-link:any-link {
   justify-content: center;
   width: 36px;
   height: 36px;
-  background-color: var(--text-color);
-  color: var(--background-color);
+  background-color: var(--inverse-color);
+  color: var(--text-color);
 }
 
 footer .footer .footer-social-link:hover {
-  color: var(--accent-color);
+  background-color: var(--accent-color);
+  color: var(--text-color);
   text-decoration: none;
 }
 
