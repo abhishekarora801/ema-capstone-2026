@@ -1,3 +1,15 @@
+/* Full-bleed: the hero carousel spans the whole viewport width, breaking out
+   of the section's centered max-width container (matching the WKND source).
+   Overrides the boilerplate `main > .section > div` max-width/padding, so the
+   selector is scoped to main to match that specificity. */
+main > .section > .carousel-hero-wrapper {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 0;
+}
+
 .carousel-hero .carousel-hero-slides-container {
   position: relative;
 }
