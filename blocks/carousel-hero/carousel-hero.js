@@ -130,6 +130,18 @@ export default async function decorate(block) {
 
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx, carouselId);
+
+    // The first slide's image is the LCP element on the homepage. Load it
+    // eagerly with high fetch priority so it isn't delayed behind lazy assets
+    // (Lighthouse showed a large LCP "load delay" otherwise).
+    if (idx === 0) {
+      const firstImg = slide.querySelector('img');
+      if (firstImg) {
+        firstImg.setAttribute('loading', 'eager');
+        firstImg.setAttribute('fetchpriority', 'high');
+      }
+    }
+
     slidesWrapper.append(slide);
 
     if (slideIndicators) {
