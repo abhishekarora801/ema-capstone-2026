@@ -32,9 +32,9 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/index"],
-    "reuseCount": 2,
-    "lastUsed": "2026-09-08T00:00:00.000Z",
-    "note": "Used twice on the homepage: Recent Articles and Where do you want to go? grids."
+    "pagesUsing": ["/index", "/us/en/adventures"],
+    "reuseCount": 3,
+    "lastUsed": "2026-09-09T00:00:00.000Z",
+    "note": "Used twice on the homepage (Recent Articles, Where do you want to go?) and on the Adventures category-listing page (Current Adventures grid)."
   }
 }
