@@ -21,35 +21,35 @@
 .tabs-adventure .tabs-adventure-list button {
   flex: 0 0 max-content;
   margin: 0;
-  border: 1px solid #dadada;
+  border: 0;
   border-radius: 0;
-  padding: 0.5em;
-  background-color: var(--light-color);
-  color: initial;
-  font-weight: bold;
+  padding: 0.5em 1em;
+  background-color: transparent;
+  color: var(--text-color);
+  font-weight: var(--bold-font-weight);
   line-height: unset;
   text-align: initial;
+  text-transform: uppercase;
   text-overflow: unset;
   overflow: unset;
   white-space: unset;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .tabs-adventure .tabs-adventure-list button p {
   margin: 0;
 }
 
-
+/* Active tab: solid dark fill with inverse text */
 .tabs-adventure .tabs-adventure-list button[aria-selected='true'] {
-  border-bottom: 1px solid var(--background-color);
-  background-color: var(--background-color);
+  background-color: var(--text-color);
+  color: var(--background-color);
   cursor: initial;
 }
 
+/* Tab body: no outer border/outline (matches source) */
 .tabs-adventure .tabs-adventure-panel {
-  margin-top: -1px;
-  padding: 24px;
-  border: 1px solid #dadada;
+  padding: 24px 0;
   overflow: auto;
 }
 

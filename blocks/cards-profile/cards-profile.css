@@ -44,21 +44,28 @@
   font-size: var(--body-font-size-s);
 }
 
-/* Row of social icon links */
-.cards-profile .cards-profile-card-body p:last-child {
+/* Horizontal row of social icon buttons */
+.cards-profile .cards-profile-social {
   display: flex;
   justify-content: center;
   gap: 8px;
+  margin: 12px 0 0;
   text-transform: none;
   letter-spacing: normal;
 }
 
-.cards-profile .cards-profile-card-body p a {
+.cards-profile .cards-profile-social-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 36px;
-  background-color: #1a1a1a;
-  color: #fff;
+  background-color: var(--text-color);
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+.cards-profile .cards-profile-social-link:hover,
+.cards-profile .cards-profile-social-link:focus-visible {
+  color: var(--accent-color);
 }
