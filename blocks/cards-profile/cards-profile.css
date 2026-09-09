@@ -1,0 +1,64 @@
+.cards-profile > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  gap: 24px;
+}
+
+.cards-profile > ul > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cards-profile .cards-profile-card-body {
+  margin: 16px;
+}
+
+.cards-profile .cards-profile-card-image {
+  line-height: 0;
+}
+
+/* Circular avatar photo */
+.cards-profile > ul > li img {
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Name */
+.cards-profile .cards-profile-card-body h3 {
+  margin: 8px 0 4px;
+}
+
+/* Role / title line */
+.cards-profile .cards-profile-card-body h5,
+.cards-profile .cards-profile-card-body p {
+  margin: 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: var(--body-font-size-s);
+}
+
+/* Row of social icon links */
+.cards-profile .cards-profile-card-body p:last-child {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.cards-profile .cards-profile-card-body p a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: #1a1a1a;
+  color: #fff;
+}

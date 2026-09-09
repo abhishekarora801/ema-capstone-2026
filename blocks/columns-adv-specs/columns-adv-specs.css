@@ -1,0 +1,33 @@
+.columns-adv-specs > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns-adv-specs img {
+  width: 100%;
+}
+
+.columns-adv-specs > div > div {
+  order: 1;
+}
+
+.columns-adv-specs > div > .columns-adv-specs-img-col {
+  order: 0;
+}
+
+.columns-adv-specs > div > .columns-adv-specs-img-col img {
+  display: block;
+}
+
+@media (width >= 900px) {
+  .columns-adv-specs > div {
+    align-items: center;
+    flex-direction: unset;
+    gap: 24px;
+  }
+
+  .columns-adv-specs > div > div {
+    flex: 1;
+    order: unset;
+  }
+}
