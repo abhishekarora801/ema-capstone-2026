@@ -61,6 +61,9 @@ header nav .nav-locale {
 }
 
 header nav .nav-locale-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin: 0;
   border: 0;
   border-radius: 0;
@@ -72,6 +75,11 @@ header nav .nav-locale-toggle {
   cursor: pointer;
 }
 
+header nav .nav-locale-toggle img {
+  width: 20px;
+  height: auto;
+}
+
 header nav .nav-locale-list {
   list-style: none;
   margin: 0;
@@ -79,21 +87,53 @@ header nav .nav-locale-list {
   display: none;
 }
 
+/* Country-grouped dropdown: each row = flag + COUNTRY name + locale links */
 header nav .nav-locale-toggle[aria-expanded='true'] + .nav-locale-list,
 header nav .nav-locale:hover .nav-locale-list {
   display: block;
   position: absolute;
   top: 100%;
   right: 0;
-  min-width: 120px;
-  padding: 8px 0;
+  width: 320px;
+  padding: 0;
   background-color: var(--dark-color);
   z-index: 3;
 }
 
-header nav .nav-locale-list li {
-  padding: 4px 16px;
+header nav .nav-locale-country {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: center;
+  column-gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgb(255 255 255 / 15%);
+  text-transform: uppercase;
   white-space: nowrap;
+}
+
+header nav .nav-locale-country:last-child {
+  border-bottom: 0;
+}
+
+header nav .nav-locale-flag {
+  grid-row: 1 / span 2;
+  width: 28px;
+  height: auto;
+}
+
+header nav .nav-locale-options {
+  grid-column: 2;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 4px 0 0;
+  padding: 0;
+}
+
+header nav .nav-locale-options a:any-link {
+  color: var(--background-color);
+  text-decoration: underline;
 }
 
 /* hamburger */
@@ -320,6 +360,11 @@ header nav .nav-search input:focus-visible {
 
   header nav .nav-utility a:any-link {
     color: var(--background-color);
+  }
+
+  /* Sign In shown in caps, matching the source */
+  header nav .nav-utility .nav-signin {
+    text-transform: uppercase;
   }
 
   header nav .nav-brand {

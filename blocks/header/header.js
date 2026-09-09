@@ -153,19 +153,34 @@ function decorateSearch(navTools) {
  */
 function decorateUtility(navUtility) {
   if (!navUtility) return;
-  navUtility.querySelector('a[href*="sign-in"], a[href="#sign-in"]')?.classList.add('nav-signin');
+  const signIn = navUtility.querySelector('a[href*="sign-in"], a[href="#sign-in"]');
+  if (signIn) {
+    signIn.classList.add('nav-signin');
+    // Source renders SIGN IN in caps (done via CSS text-transform in header.css).
+  }
 
   const localeList = navUtility.querySelector('ul');
   if (localeList) {
     const wrapper = document.createElement('div');
     wrapper.className = 'nav-locale';
-    const current = localeList.querySelector('li')?.textContent.trim() || 'EN-US';
+
+    // Tag each country row and its flag/locale-links for styling.
+    localeList.classList.add('nav-locale-list');
+    localeList.querySelectorAll(':scope > li').forEach((country) => {
+      country.classList.add('nav-locale-country');
+      country.querySelector(':scope > img')?.classList.add('nav-locale-flag');
+      country.querySelector(':scope > ul')?.classList.add('nav-locale-options');
+    });
+
+    // Toggle shows the current flag + locale (US/EN by default).
     const toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'nav-locale-toggle';
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.textContent = current;
-    localeList.classList.add('nav-locale-list');
+    const currentFlag = localeList.querySelector('.nav-locale-flag');
+    const currentLocale = localeList.querySelector('.nav-locale-options a');
+    toggle.innerHTML = `${currentFlag ? currentFlag.outerHTML : ''}<span>${currentLocale ? currentLocale.textContent.trim() : 'EN-US'}</span>`;
+
     wrapper.append(toggle, localeList);
     navUtility.append(wrapper);
     toggle.addEventListener('click', () => {
