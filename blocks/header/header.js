@@ -164,12 +164,25 @@ function decorateUtility(navUtility) {
     const wrapper = document.createElement('div');
     wrapper.className = 'nav-locale';
 
-    // Tag each country row and its flag/locale-links for styling.
+    // Tag each country row and its flag/locale-links for styling. EDS wraps
+    // fragment images in <picture>, so tag whichever wrapper is present.
     localeList.classList.add('nav-locale-list');
     localeList.querySelectorAll(':scope > li').forEach((country) => {
       country.classList.add('nav-locale-country');
-      country.querySelector(':scope > img')?.classList.add('nav-locale-flag');
-      country.querySelector(':scope > ul')?.classList.add('nav-locale-options');
+      // EDS wraps the flag in <p><picture> and keeps the options in a nested
+      // <ul>. Lift the flag to be a direct child (grid cell) and unwrap its <p>.
+      const flag = country.querySelector('picture') || country.querySelector('img');
+      if (flag) {
+        flag.classList.add('nav-locale-flag');
+        const wrap = flag.closest('p');
+        if (wrap && wrap.parentElement === country) {
+          country.insertBefore(flag, wrap);
+          wrap.remove();
+        } else {
+          country.insertBefore(flag, country.firstChild);
+        }
+      }
+      country.querySelector('ul')?.classList.add('nav-locale-options');
     });
 
     // Toggle shows the current flag + locale (US/EN by default).
@@ -177,9 +190,10 @@ function decorateUtility(navUtility) {
     toggle.type = 'button';
     toggle.className = 'nav-locale-toggle';
     toggle.setAttribute('aria-expanded', 'false');
-    const currentFlag = localeList.querySelector('.nav-locale-flag');
+    const currentFlag = localeList.querySelector('.nav-locale-country .nav-locale-flag');
     const currentLocale = localeList.querySelector('.nav-locale-options a');
-    toggle.innerHTML = `${currentFlag ? currentFlag.outerHTML : ''}<span>${currentLocale ? currentLocale.textContent.trim() : 'EN-US'}</span>`;
+    const flagMarkup = currentFlag ? `<span class="nav-locale-toggle-flag">${currentFlag.outerHTML}</span>` : '';
+    toggle.innerHTML = `${flagMarkup}<span>${currentLocale ? currentLocale.textContent.trim() : 'EN-US'}</span>`;
 
     wrapper.append(toggle, localeList);
     navUtility.append(wrapper);

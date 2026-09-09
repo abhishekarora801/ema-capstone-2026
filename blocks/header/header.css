@@ -75,7 +75,9 @@ header nav .nav-locale-toggle {
   cursor: pointer;
 }
 
-header nav .nav-locale-toggle img {
+header nav .nav-locale-toggle img,
+header nav .nav-locale-toggle-flag img {
+  display: block;
   width: 20px;
   height: auto;
 }
@@ -118,7 +120,17 @@ header nav .nav-locale-country:last-child {
 header nav .nav-locale-flag {
   grid-row: 1 / span 2;
   width: 28px;
+}
+
+header nav .nav-locale-flag img {
+  display: block;
+  width: 28px;
   height: auto;
+}
+
+header nav .nav-locale-country strong {
+  grid-column: 2;
+  font-weight: var(--bold-font-weight);
 }
 
 header nav .nav-locale-options {
