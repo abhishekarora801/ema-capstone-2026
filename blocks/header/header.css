@@ -61,6 +61,9 @@ header nav .nav-locale {
 }
 
 header nav .nav-locale-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin: 0;
   border: 0;
   border-radius: 0;
@@ -72,6 +75,13 @@ header nav .nav-locale-toggle {
   cursor: pointer;
 }
 
+header nav .nav-locale-toggle img,
+header nav .nav-locale-toggle-flag img {
+  display: block;
+  width: 20px;
+  height: auto;
+}
+
 header nav .nav-locale-list {
   list-style: none;
   margin: 0;
@@ -79,21 +89,63 @@ header nav .nav-locale-list {
   display: none;
 }
 
+/* Country-grouped dropdown: each row = flag + COUNTRY name + locale links */
 header nav .nav-locale-toggle[aria-expanded='true'] + .nav-locale-list,
 header nav .nav-locale:hover .nav-locale-list {
   display: block;
   position: absolute;
   top: 100%;
   right: 0;
-  min-width: 120px;
-  padding: 8px 0;
+  width: 320px;
+  padding: 0;
   background-color: var(--dark-color);
   z-index: 3;
 }
 
-header nav .nav-locale-list li {
-  padding: 4px 16px;
+header nav .nav-locale-country {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: center;
+  column-gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgb(255 255 255 / 15%);
+  text-transform: uppercase;
   white-space: nowrap;
+}
+
+header nav .nav-locale-country:last-child {
+  border-bottom: 0;
+}
+
+header nav .nav-locale-flag {
+  grid-row: 1 / span 2;
+  width: 28px;
+}
+
+header nav .nav-locale-flag img {
+  display: block;
+  width: 28px;
+  height: auto;
+}
+
+header nav .nav-locale-name {
+  grid-column: 2;
+  font-weight: var(--bold-font-weight);
+}
+
+header nav .nav-locale-options {
+  grid-column: 2;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 4px 0 0;
+  padding: 0;
+}
+
+header nav .nav-locale-options a:any-link {
+  color: var(--background-color);
+  text-decoration: underline;
 }
 
 /* hamburger */
@@ -188,7 +240,8 @@ header nav .nav-brand img {
 
 @media (width >= 900px) {
   header nav .nav-brand img {
-    width: 160px;
+    width: var(--header-logo-w);
+    transition: width 0.2s ease;
   }
 }
 
@@ -282,17 +335,36 @@ header nav .nav-search input:focus-visible {
   header nav[aria-expanded='true'] {
     display: grid;
 
+    /* Gutter that indents header content to a centered container (matching the
+       source, where the logo lines up with the page content rather than the
+       viewport edge). The utility bar stays full-bleed; only its inner content
+       uses the gutter. */
+    --header-gutter: max(32px, calc((100vw - 1264px) / 2));
+
+    /* Shrink-on-scroll sizes. The .header-scrolled state (set by header.js past
+       a scroll threshold) reduces these; the transitions below animate them. */
+    --header-row-h: 120px;
+    --header-logo-w: 160px;
+    --header-utility-pad: 8px;
+
     /* Taller main row than --nav-height so the logo has breathing room and
        sits vertically centered, matching the source header. */
     grid-template:
       'utility utility utility' auto
-      'brand sections tools' 120px / auto 1fr auto;
+      'brand sections tools' var(--header-row-h) / auto 1fr auto;
     gap: 0 32px;
     max-width: unset;
     height: auto;
     min-height: 0;
     overflow: visible;
     padding: 0;
+  }
+
+  /* Compact state after scrolling: shorter row, smaller logo, tighter bar */
+  header.header-scrolled nav {
+    --header-row-h: 72px;
+    --header-logo-w: 110px;
+    --header-utility-pad: 4px;
   }
 
   header nav .nav-utility {
@@ -304,8 +376,9 @@ header nav .nav-search input:focus-visible {
     gap: 24px;
     background-color: var(--dark-color);
     color: var(--background-color);
-    padding: 8px 32px;
+    padding: var(--header-utility-pad) var(--header-gutter);
     font-size: var(--body-font-size-xs);
+    transition: padding 0.2s ease;
   }
 
   header nav .nav-utility p {
@@ -316,12 +389,17 @@ header nav .nav-search input:focus-visible {
     color: var(--background-color);
   }
 
+  /* Sign In shown in caps, matching the source */
+  header nav .nav-utility .nav-signin {
+    text-transform: uppercase;
+  }
+
   header nav .nav-brand {
-    padding-left: 32px;
+    padding-left: var(--header-gutter);
   }
 
   header nav .nav-tools {
-    padding-right: 32px;
+    padding-right: var(--header-gutter);
   }
 
   header nav .nav-hamburger {
@@ -345,7 +423,8 @@ header nav .nav-search input:focus-visible {
     justify-content: flex-end;
     gap: 0;
     margin: 0;
-    height: 120px;
+    height: var(--header-row-h);
+    transition: height 0.2s ease;
   }
 
   /* Nav items render as full-height tabs (source uses a yellow highlight on

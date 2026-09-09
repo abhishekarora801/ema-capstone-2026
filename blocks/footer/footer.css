@@ -1,20 +1,138 @@
 footer {
-  background-color: var(--light-color);
+  background-color: var(--dark-color);
+  color: var(--light-color);
   font-size: var(--body-font-size-xs);
 }
 
 footer .footer > div {
   margin: auto;
-  max-width: 1200px;
+  max-width: var(--content-max-width);
   padding: 40px 24px 24px;
 }
 
 footer .footer p {
+  margin: 0 0 12px;
+}
+
+/* Reset the bulleted lists (nav + social) that come from the fragment */
+footer .footer ul {
+  list-style: none;
   margin: 0;
+  padding: 0;
+}
+
+footer .footer a:any-link {
+  color: var(--light-color);
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  text-decoration: underline;
+}
+
+/* Inline links inside the legal/description paragraphs are underlined so they
+   are distinguishable from the surrounding body text (matches the source). */
+footer .footer-legal a:any-link {
+  text-decoration: underline;
+}
+
+/* Brand logo */
+footer .footer-brand img {
+  width: 120px;
+  height: auto;
+}
+
+/* Follow Us heading — force light color; the global h1-h6 rule sets a dark
+   text color that would otherwise make it invisible on the dark footer. */
+footer .footer-social h3 {
+  margin: 0 0 12px;
+  color: var(--light-color);
+  font-size: var(--body-font-size-s);
+}
+
+/* Social icons row */
+footer .footer-social-links {
+  display: flex;
+  gap: 8px;
+}
+
+footer .footer .footer-social-link:any-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: var(--inverse-color);
+  color: var(--text-color);
+}
+
+footer .footer .footer-social-link:hover {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+footer .footer-social-link svg {
+  fill: currentcolor;
+}
+
+/* Legal / description block */
+footer .footer-legal {
+  color: var(--light-color);
 }
 
 @media (width >= 900px) {
+  /* Top row: logo | nav | (Follow Us + social) horizontal, legal text below —
+     matching the WKND source. The grid container is the inner div that holds
+     the tagged sections (footer.js appends sections into a wrapper div). */
   footer .footer > div {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      'brand nav social'
+      'legal legal legal';
+    align-items: center;
+    column-gap: 48px;
     padding: 40px 32px 24px;
+  }
+
+  footer .footer-brand {
+    grid-area: brand;
+  }
+
+  footer .footer-nav {
+    grid-area: nav;
+  }
+
+  /* Follow Us + icons right-aligned */
+  footer .footer-social {
+    grid-area: social;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  footer .footer-legal {
+    grid-area: legal;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgb(255 255 255 / 20%);
+  }
+
+  /* Nav items in a horizontal, uppercase row */
+  footer .footer-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  footer .footer-nav a {
+    text-transform: uppercase;
+  }
+
+  footer .footer-social h3 {
+    margin: 0;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 }

@@ -1,3 +1,40 @@
+/* Filter tab bar (rendered only when authors provide a category list) */
+.cards-teaser .cards-teaser-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5ch;
+  margin: 0 0 24px;
+  font-size: var(--body-font-size-xs);
+}
+
+.cards-teaser .cards-teaser-filter {
+  flex: 0 0 max-content;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0.5em 1em;
+  background-color: transparent;
+  color: var(--text-color);
+  font-weight: var(--bold-font-weight);
+  line-height: unset;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Active filter: solid dark fill with inverse text (matches WKND) */
+.cards-teaser .cards-teaser-filter[aria-selected='true'] {
+  background-color: var(--text-color);
+  color: var(--background-color);
+  cursor: initial;
+}
+
+@media (width >= 600px) {
+  .cards-teaser .cards-teaser-filters {
+    font-size: var(--body-font-size-s);
+  }
+}
+
 .cards-teaser > ul {
   list-style: none;
   margin: 0;
@@ -5,6 +42,10 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
+}
+
+.cards-teaser > ul > li[hidden] {
+  display: none;
 }
 
 .cards-teaser > ul > li {

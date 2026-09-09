@@ -153,19 +153,73 @@ function decorateSearch(navTools) {
  */
 function decorateUtility(navUtility) {
   if (!navUtility) return;
-  navUtility.querySelector('a[href*="sign-in"], a[href="#sign-in"]')?.classList.add('nav-signin');
+  const signIn = navUtility.querySelector('a[href*="sign-in"], a[href="#sign-in"]');
+  if (signIn) {
+    signIn.classList.add('nav-signin');
+    // Source renders SIGN IN in caps (done via CSS text-transform in header.css).
+  }
 
   const localeList = navUtility.querySelector('ul');
   if (localeList) {
     const wrapper = document.createElement('div');
     wrapper.className = 'nav-locale';
-    const current = localeList.querySelector('li')?.textContent.trim() || 'EN-US';
+
+    // Tag each country row and its flag/locale-links for styling. EDS wraps
+    // fragment images in <picture>, so tag whichever wrapper is present.
+    localeList.classList.add('nav-locale-list');
+    localeList.querySelectorAll(':scope > li').forEach((country) => {
+      country.classList.add('nav-locale-country');
+      // EDS wraps the flag in <p><picture> and keeps the options in a nested
+      // <ul>. Lift the flag to be a direct child (grid cell) and unwrap its <p>.
+      const flag = country.querySelector('picture') || country.querySelector('img');
+      const options = country.querySelector('ul');
+      options?.classList.add('nav-locale-options');
+      if (flag) {
+        flag.classList.add('nav-locale-flag');
+        const wrap = flag.closest('p');
+        if (wrap && wrap.parentElement === country) {
+          country.insertBefore(flag, wrap);
+          wrap.remove();
+        } else {
+          country.insertBefore(flag, country.firstChild);
+        }
+      }
+      // Country name: prefer surviving text/elements, else derive from the flag
+      // alt (the fragment's bare country-name text does not survive the DA→md
+      // pipeline reliably, but the flag alt does). Render it as its own element.
+      let name = country.querySelector('strong');
+      if (!name) {
+        const img = flag?.tagName === 'IMG' ? flag : flag?.querySelector('img');
+        const label = (img?.getAttribute('alt') || '').trim();
+        const looseText = [...country.childNodes]
+          .filter((n) => n.nodeType === Node.TEXT_NODE)
+          .map((n) => n.textContent.trim())
+          .join(' ')
+          .trim();
+        const text = looseText || label;
+        if (text) {
+          name = document.createElement('strong');
+          name.textContent = text;
+        }
+      }
+      if (name) {
+        name.classList.add('nav-locale-name');
+        // Place the name before the options list (top of grid column 2).
+        if (options) country.insertBefore(name, options);
+        else country.append(name);
+      }
+    });
+
+    // Toggle shows the current flag + locale (US/EN by default).
     const toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'nav-locale-toggle';
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.textContent = current;
-    localeList.classList.add('nav-locale-list');
+    const currentFlag = localeList.querySelector('.nav-locale-country .nav-locale-flag');
+    const currentLocale = localeList.querySelector('.nav-locale-options a');
+    const flagMarkup = currentFlag ? `<span class="nav-locale-toggle-flag">${currentFlag.outerHTML}</span>` : '';
+    toggle.innerHTML = `${flagMarkup}<span>${currentLocale ? currentLocale.textContent.trim() : 'EN-US'}</span>`;
+
     wrapper.append(toggle, localeList);
     navUtility.append(wrapper);
     toggle.addEventListener('click', () => {
@@ -248,4 +302,23 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  // Shrink-on-scroll: toggle a class on the sticky header once the page is
+  // scrolled past a small threshold. CSS handles the smooth size/spacing
+  // transition to the compact state. Uses rAF so the scroll handler is cheap.
+  const headerEl = block.closest('header') || block;
+  const SHRINK_AT = 40;
+  let ticking = false;
+  const applyShrink = () => {
+    headerEl.classList.toggle('header-scrolled', window.scrollY > SHRINK_AT);
+    ticking = false;
+  };
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(applyShrink);
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  applyShrink();
 }
