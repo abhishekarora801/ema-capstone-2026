@@ -240,7 +240,8 @@ header nav .nav-brand img {
 
 @media (width >= 900px) {
   header nav .nav-brand img {
-    width: 160px;
+    width: var(--header-logo-w);
+    transition: width 0.2s ease;
   }
 }
 
@@ -340,17 +341,30 @@ header nav .nav-search input:focus-visible {
        uses the gutter. */
     --header-gutter: max(32px, calc((100vw - 1264px) / 2));
 
+    /* Shrink-on-scroll sizes. The .header-scrolled state (set by header.js past
+       a scroll threshold) reduces these; the transitions below animate them. */
+    --header-row-h: 120px;
+    --header-logo-w: 160px;
+    --header-utility-pad: 8px;
+
     /* Taller main row than --nav-height so the logo has breathing room and
        sits vertically centered, matching the source header. */
     grid-template:
       'utility utility utility' auto
-      'brand sections tools' 120px / auto 1fr auto;
+      'brand sections tools' var(--header-row-h) / auto 1fr auto;
     gap: 0 32px;
     max-width: unset;
     height: auto;
     min-height: 0;
     overflow: visible;
     padding: 0;
+  }
+
+  /* Compact state after scrolling: shorter row, smaller logo, tighter bar */
+  header.header-scrolled nav {
+    --header-row-h: 72px;
+    --header-logo-w: 110px;
+    --header-utility-pad: 4px;
   }
 
   header nav .nav-utility {
@@ -362,8 +376,9 @@ header nav .nav-search input:focus-visible {
     gap: 24px;
     background-color: var(--dark-color);
     color: var(--background-color);
-    padding: 8px var(--header-gutter);
+    padding: var(--header-utility-pad) var(--header-gutter);
     font-size: var(--body-font-size-xs);
+    transition: padding 0.2s ease;
   }
 
   header nav .nav-utility p {
@@ -408,7 +423,8 @@ header nav .nav-search input:focus-visible {
     justify-content: flex-end;
     gap: 0;
     margin: 0;
-    height: 120px;
+    height: var(--header-row-h);
+    transition: height 0.2s ease;
   }
 
   /* Nav items render as full-height tabs (source uses a yellow highlight on

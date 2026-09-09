@@ -302,4 +302,23 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  // Shrink-on-scroll: toggle a class on the sticky header once the page is
+  // scrolled past a small threshold. CSS handles the smooth size/spacing
+  // transition to the compact state. Uses rAF so the scroll handler is cheap.
+  const headerEl = block.closest('header') || block;
+  const SHRINK_AT = 40;
+  let ticking = false;
+  const applyShrink = () => {
+    headerEl.classList.toggle('header-scrolled', window.scrollY > SHRINK_AT);
+    ticking = false;
+  };
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(applyShrink);
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  applyShrink();
 }
