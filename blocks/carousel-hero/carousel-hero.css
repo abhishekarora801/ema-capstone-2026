@@ -38,7 +38,10 @@ main > .section > .carousel-hero-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+
+  /* Anchor the caption card to the bottom-left of the hero (matching the WKND
+     source), rather than vertically centering it. */
+  justify-content: flex-end;
   position: relative;
   width: 100%;
 
