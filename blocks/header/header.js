@@ -109,6 +109,73 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 /**
+ * Builds the search control in the tools area. The fragment carries only a
+ * `:search:` token / placeholder; the interactive input + button are created
+ * here (form controls never live in the plain fragment).
+ * @param {Element} navTools The tools section element
+ */
+function decorateSearch(navTools) {
+  if (!navTools) return;
+  // Remove the placeholder text/icon the fragment used to mark the search slot.
+  navTools.textContent = '';
+
+  const form = document.createElement('form');
+  form.className = 'nav-search';
+  form.setAttribute('role', 'search');
+  form.action = '/search';
+
+  const label = document.createElement('label');
+  label.className = 'nav-search-label';
+  label.setAttribute('for', 'nav-search-input');
+  label.textContent = 'Search';
+
+  const input = document.createElement('input');
+  input.type = 'search';
+  input.id = 'nav-search-input';
+  input.name = 'q';
+  input.placeholder = 'SEARCH';
+  input.setAttribute('aria-label', 'Search');
+
+  const submit = document.createElement('button');
+  submit.type = 'submit';
+  submit.className = 'nav-search-submit';
+  submit.setAttribute('aria-label', 'Submit search');
+
+  form.append(label, input, submit);
+  navTools.append(form);
+}
+
+/**
+ * Marks up the locale selector in the utility bar. The fragment provides the
+ * "Sign In" link and a locale list; this tags them for styling and turns the
+ * locale list into a hoverable dropdown keyed off the current locale.
+ * @param {Element} navUtility The utility section element
+ */
+function decorateUtility(navUtility) {
+  if (!navUtility) return;
+  navUtility.querySelector('a[href*="sign-in"], a[href="#sign-in"]')?.classList.add('nav-signin');
+
+  const localeList = navUtility.querySelector('ul');
+  if (localeList) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'nav-locale';
+    const current = localeList.querySelector('li')?.textContent.trim() || 'EN-US';
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'nav-locale-toggle';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.textContent = current;
+    localeList.classList.add('nav-locale-list');
+    wrapper.append(toggle, localeList);
+    navUtility.append(wrapper);
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+  }
+}
+
+/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -124,14 +191,15 @@ export default async function decorate(block) {
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  const classes = ['brand', 'sections', 'tools'];
+  // Four fragment sections: utility (Sign In + locale), brand, sections, tools.
+  const classes = ['utility', 'brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
     if (section) section.classList.add(`nav-${c}`);
   });
 
   const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
+  const brandLink = navBrand?.querySelector('.button');
   if (brandLink) {
     brandLink.className = '';
     brandLink.closest('.button-container').className = '';
@@ -150,6 +218,9 @@ export default async function decorate(block) {
       });
     });
   }
+
+  decorateUtility(nav.querySelector('.nav-utility'));
+  decorateSearch(nav.querySelector('.nav-tools'));
 
   // hamburger for mobile
   const hamburger = document.createElement('div');
