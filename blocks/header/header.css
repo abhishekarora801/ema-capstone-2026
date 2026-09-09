@@ -128,7 +128,7 @@ header nav .nav-locale-flag img {
   height: auto;
 }
 
-header nav .nav-locale-country strong {
+header nav .nav-locale-name {
   grid-column: 2;
   font-weight: var(--bold-font-weight);
 }

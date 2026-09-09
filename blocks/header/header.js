@@ -172,6 +172,8 @@ function decorateUtility(navUtility) {
       // EDS wraps the flag in <p><picture> and keeps the options in a nested
       // <ul>. Lift the flag to be a direct child (grid cell) and unwrap its <p>.
       const flag = country.querySelector('picture') || country.querySelector('img');
+      const options = country.querySelector('ul');
+      options?.classList.add('nav-locale-options');
       if (flag) {
         flag.classList.add('nav-locale-flag');
         const wrap = flag.closest('p');
@@ -182,7 +184,30 @@ function decorateUtility(navUtility) {
           country.insertBefore(flag, country.firstChild);
         }
       }
-      country.querySelector('ul')?.classList.add('nav-locale-options');
+      // Country name: prefer surviving text/elements, else derive from the flag
+      // alt (the fragment's bare country-name text does not survive the DA→md
+      // pipeline reliably, but the flag alt does). Render it as its own element.
+      let name = country.querySelector('strong');
+      if (!name) {
+        const img = flag?.tagName === 'IMG' ? flag : flag?.querySelector('img');
+        const label = (img?.getAttribute('alt') || '').trim();
+        const looseText = [...country.childNodes]
+          .filter((n) => n.nodeType === Node.TEXT_NODE)
+          .map((n) => n.textContent.trim())
+          .join(' ')
+          .trim();
+        const text = looseText || label;
+        if (text) {
+          name = document.createElement('strong');
+          name.textContent = text;
+        }
+      }
+      if (name) {
+        name.classList.add('nav-locale-name');
+        // Place the name before the options list (top of grid column 2).
+        if (options) country.insertBefore(name, options);
+        else country.append(name);
+      }
     });
 
     // Toggle shows the current flag + locale (US/EN by default).
