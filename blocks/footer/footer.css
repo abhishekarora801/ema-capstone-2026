@@ -26,6 +26,19 @@ footer .footer a:any-link {
   text-decoration: none;
 }
 
+/* Nav links need a large-enough tap target (>=24px, WCAG 2.5.8). The link text
+   is ~18px tall, so pad the row and space items to clear the minimum. */
+footer .footer-nav li {
+  margin: 0;
+}
+
+footer .footer-nav a:any-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 0;
+}
+
 footer .footer a:hover {
   text-decoration: underline;
 }

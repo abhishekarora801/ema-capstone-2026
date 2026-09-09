@@ -5,6 +5,10 @@
 
 .columns-featured img {
   width: 100%;
+
+  /* height:auto lets the browser derive the box from the width/height attrs so
+     the image reserves space before load and doesn't shift the section (CLS). */
+  height: auto;
 }
 
 .columns-featured > div > div {

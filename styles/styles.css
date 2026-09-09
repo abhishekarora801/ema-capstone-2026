@@ -109,6 +109,24 @@ h6 {
   text-transform: uppercase;
 }
 
+/* Article labels that look like headings but are not part of the document
+   outline (byline, decorative subtitle repeating the H1, and the "share"
+   label). Kept as paragraphs so the heading order stays H1 -> H2, but styled
+   with the serif heading font to preserve the original appearance. */
+.article-byline,
+.article-subtitle,
+.article-share-label {
+  margin: 0.75em 0 0.375em;
+  color: var(--text-color);
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  line-height: 1.5;
+}
+
+.article-byline { font-size: var(--heading-font-size-m); }
+.article-subtitle { font-size: var(--heading-font-size-l); }
+.article-share-label { font-size: var(--heading-font-size-s); }
+
 p,
 dl,
 ol,

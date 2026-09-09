@@ -6,8 +6,8 @@
 
 :root {
   /* fonts */
-  --heading-font-family: "Asar", georgia, "Times New Roman", times, serif;
-  --body-font-family: "Source Sans Pro", "Helvetica Neue", helvetica, arial, sans-serif;
+  --heading-font-family: "Asar", "Asar Fallback", georgia, "Times New Roman", times, serif;
+  --body-font-family: "Source Sans Pro", "Source Sans Pro Fallback", "Helvetica Neue", helvetica, arial, sans-serif;
   --heading-font-weight: 400;
   --bold-font-weight: 600;
 
