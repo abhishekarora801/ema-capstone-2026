@@ -360,7 +360,7 @@ main > .section:first-of-type {
     grid-column: 2;
     grid-row: 1 / span 2;
     align-self: start;
-    margin-top: 0.75em;
+    margin-top: 4.75em;
   }
 }
 
