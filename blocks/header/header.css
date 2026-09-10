@@ -443,19 +443,22 @@ header nav .nav-search input:focus-visible {
     display: flex;
     align-items: center;
     text-transform: uppercase;
-    transition: background-color 0.2s;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > a {
     display: flex;
     align-items: center;
-    height: 100%;
-    padding: 0 20px;
+
+    /* Highlight is a compact box around the link text (matching the source),
+       not the full header-row height — so paint the background on the anchor
+       with its own vertical padding rather than on the full-height li. */
+    padding: 12px 20px;
     text-decoration: none;
+    transition: background-color 0.2s;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li:hover,
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-active {
+  header nav .nav-sections .default-content-wrapper > ul > li:hover > a,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-active > a {
     background-color: var(--accent-color);
   }
 }
