@@ -3,10 +3,28 @@
   padding: 0;
 }
 
+/* Full-width image with a white content card overlapping its lower-left
+   (matching the WKND source), rather than text laid directly over the image. */
 .hero-promo {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+}
+
+.hero-promo picture {
+  display: block;
+  line-height: 0;
+}
+
+.hero-promo img {
+  width: 100%;
+  height: auto;
+  max-height: 640px;
+  object-fit: cover;
+}
+
+/* Content panel: on mobile it sits below the image (stacked, full width). */
+.hero-promo > div:last-child {
+  background-color: var(--background-color);
+  padding: 32px 24px;
 }
 
 .hero-promo h1,
@@ -16,32 +34,27 @@
 .hero-promo h5,
 .hero-promo h6,
 .hero-promo p {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
-.hero-promo.no-image * {
   color: var(--text-color);
 }
 
-.hero-promo picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
-}
-
-.hero-promo img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+/* When the block has no image, keep the plain content styling. */
+.hero-promo.no-image > div:last-child {
+  padding: 40px 24px;
 }
 
 @media (width >= 900px) {
-  .hero-promo {
-    padding: 40px 32px;
+  /* Overlap the white card onto the bottom-left of the image. */
+  .hero-promo > div:last-child {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: min(60%, 720px);
+    margin: 0;
+    padding: 40px 48px;
+  }
+
+  .hero-promo.no-image > div:last-child {
+    position: static;
+    width: auto;
   }
 }
