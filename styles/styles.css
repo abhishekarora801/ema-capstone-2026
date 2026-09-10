@@ -352,11 +352,15 @@ main > .section:first-of-type {
     grid-column: 1;
   }
 
-  /* Right column: the contact block, aligned to the top next to the FAQs. */
+  /* Right column: the contact block. Its heading is baseline-aligned with the
+     "FAQs" title, which carries a 0.75em top margin from the global h1 rule;
+     match that so the sidebar starts level with the title rather than flush
+     under the sticky header. */
   body.faq-page main > .section > .default-content-wrapper:last-child {
     grid-column: 2;
     grid-row: 1 / span 2;
     align-self: start;
+    margin-top: 0.75em;
   }
 }
 
