@@ -23,11 +23,24 @@
   display: block;
 }
 
-/* The featured section uses the grey band from the source. Its wrapper is a
-   `.highlight` section; nudge that specific band to the source's #ebebeb and
-   give the block breathing room. */
+/* The grey band is a card confined to the content column (matching the
+   source), not a full-bleed section. Paint the block itself #ebebeb and pad
+   it, and cancel the full-bleed background/padding the `.highlight` section
+   metadata would otherwise apply. */
 .section.highlight.columns-featured-container {
+  background-color: transparent;
+  padding: 0;
+}
+
+.columns-featured {
   background-color: var(--inverse-color);
+  padding: 24px;
+}
+
+@media (width >= 900px) {
+  .columns-featured {
+    padding: 40px;
+  }
 }
 
 @media (width >= 900px) {
