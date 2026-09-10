@@ -58,7 +58,7 @@ export default async function decorate(block) {
   const form = document.createElement('form');
   form.className = 'search-form';
   form.setAttribute('role', 'search');
-  form.action = '/search';
+  form.action = '/us/en/search';
   form.innerHTML = `
     <input type="search" name="q" aria-label="Search" placeholder="SEARCH" value="${query.replace(/"/g, '&quot;')}">
     <button type="submit" aria-label="Submit search"></button>

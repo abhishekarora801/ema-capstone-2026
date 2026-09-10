@@ -154,7 +154,7 @@ function decorateSearch(navTools) {
   const form = document.createElement('form');
   form.className = 'nav-search';
   form.setAttribute('role', 'search');
-  form.action = '/search';
+  form.action = '/us/en/search';
 
   const label = document.createElement('label');
   label.className = 'nav-search-label';
