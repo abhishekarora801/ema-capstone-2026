@@ -23,15 +23,27 @@
   display: block;
 }
 
+/* The featured section uses the grey band from the source. Its wrapper is a
+   `.highlight` section; nudge that specific band to the source's #ebebeb and
+   give the block breathing room. */
+.section.highlight.columns-featured-container {
+  background-color: var(--inverse-color);
+}
+
 @media (width >= 900px) {
   .columns-featured > div {
     align-items: center;
     flex-direction: unset;
-    gap: 24px;
+    gap: 48px;
+  }
+
+  /* Image column is larger than the text column (matching the source ~3:2). */
+  .columns-featured > div > .columns-featured-img-col {
+    flex: 1.6 1 0;
   }
 
   .columns-featured > div > div {
-    flex: 1;
+    flex: 1 1 0;
     order: unset;
   }
 }
