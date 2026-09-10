@@ -9,6 +9,7 @@
   /* height:auto lets the browser derive the box from the width/height attrs so
      the image reserves space before load and doesn't shift the section (CLS). */
   height: auto;
+  display: block;
 }
 
 .columns-featured > div > div {
@@ -19,14 +20,10 @@
   order: 0;
 }
 
-.columns-featured > div > .columns-featured-img-col img {
-  display: block;
-}
-
 /* The grey band is a card confined to the content column (matching the
-   source), not a full-bleed section. Paint the block itself #ebebeb and pad
-   it, and cancel the full-bleed background/padding the `.highlight` section
-   metadata would otherwise apply. */
+   source), not a full-bleed section. Paint the block itself #ebebeb and cancel
+   the full-bleed background/padding the `.highlight` section metadata applies.
+   The image bleeds to the card edges; only the text is padded. */
 .section.highlight.columns-featured-container {
   background-color: transparent;
   padding: 0;
@@ -34,29 +31,36 @@
 
 .columns-featured {
   background-color: var(--inverse-color);
+}
+
+/* Mobile: image on top (flush), text padded below. */
+.columns-featured > div > div:not(.columns-featured-img-col) {
   padding: 24px;
 }
 
 @media (width >= 900px) {
-  .columns-featured {
-    padding: 40px;
-  }
-}
-
-@media (width >= 900px) {
   .columns-featured > div {
-    align-items: center;
+    align-items: stretch;
     flex-direction: unset;
-    gap: 48px;
+    gap: 0;
   }
 
-  /* Image column is larger than the text column (matching the source ~3:2). */
+  /* Image column is larger than the text column and bleeds to the card's
+     left/top/bottom edges, filling the full card height (cropped). */
   .columns-featured > div > .columns-featured-img-col {
     flex: 1.6 1 0;
+    align-self: stretch;
   }
 
-  .columns-featured > div > div {
+  .columns-featured > div > .columns-featured-img-col img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .columns-featured > div > div:not(.columns-featured-img-col) {
     flex: 1 1 0;
     order: unset;
+    align-self: center;
+    padding: 40px 48px;
   }
 }
