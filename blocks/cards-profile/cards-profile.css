@@ -3,7 +3,11 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+
+  /* ~200px min lets four cards sit across the 1024px content column (matching
+     the source's 4-up Contributors row) while still wrapping on narrow
+     screens. auto-fit collapses empty tracks so a 3-card block fills the row. */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 24px;
 }
 

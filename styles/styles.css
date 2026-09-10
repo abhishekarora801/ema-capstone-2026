@@ -326,6 +326,42 @@ main > .section:first-of-type {
   main > .section > div {
     padding: 0 32px;
   }
+
+  /* FAQ template: two columns — the intro + accordion on the left, the
+     "Need more help?" contact block on the right (matching the source).
+     The section holds three wrappers: [0] intro (title/image/text),
+     [1] accordion, [2] the contact block. */
+  body.faq-page main > .section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 48px;
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding: 0 32px;
+  }
+
+  body.faq-page main > .section > div {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Left column: intro spans the accordion width; accordion sits under it. */
+  body.faq-page main > .section > .default-content-wrapper:first-child,
+  body.faq-page main > .section > .accordion-faq-wrapper {
+    grid-column: 1;
+  }
+
+  /* Right column: the contact block. Its heading is baseline-aligned with the
+     "FAQs" title, which carries a 0.75em top margin from the global h1 rule;
+     match that so the sidebar starts level with the title rather than flush
+     under the sticky header. */
+  body.faq-page main > .section > .default-content-wrapper:last-child {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+    margin-top: 4.75em;
+  }
 }
 
 /* section metadata */
