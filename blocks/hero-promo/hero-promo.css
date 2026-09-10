@@ -43,12 +43,14 @@
 }
 
 @media (width >= 900px) {
-  /* Overlap the white card onto the bottom-left of the image. */
+  /* Overlap the white card onto the bottom-center of the image (matching the
+     source), horizontally centered via the left/transform pair. */
   .hero-promo > div:last-child {
     position: absolute;
-    left: 0;
+    left: 50%;
     bottom: 0;
-    width: min(60%, 720px);
+    transform: translateX(-50%);
+    width: min(70%, 900px);
     margin: 0;
     padding: 40px 48px;
   }
