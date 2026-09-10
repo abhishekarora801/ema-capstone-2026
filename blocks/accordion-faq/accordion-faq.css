@@ -1,10 +1,12 @@
+/* WKND FAQ accordion: minimal rows separated by thin rules, uppercase bold
+   questions, and a +/- toggle icon (no grey box, no chevron). */
 .accordion-faq details {
-  border: 1px solid #dadada;
+  border-bottom: 1px solid #dadada;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
-.accordion-faq details + details {
-  margin-top: 24px;
+/* First item gets a top rule so the list is fully framed by hairlines. */
+.accordion-faq details:first-of-type {
+  border-top: 1px solid #dadada;
 }
 
 .accordion-faq details p {
@@ -13,49 +15,44 @@
 
 .accordion-faq details summary {
   position: relative;
-  padding: 0 16px;
-  padding-right: 46px;
+  padding: 20px 46px 20px 0;
   cursor: pointer;
   list-style: none;
-  overflow: auto;
-  transition: background-color 0.2s;
-}
-
-.accordion-faq details[open] summary {
-  background-color: var(--light-color);
-}
-
-.accordion-faq details summary:focus,
-.accordion-faq details summary:hover {
-  background-color: var(--light-color);
+  font-weight: var(--bold-font-weight);
+  text-transform: uppercase;
 }
 
 .accordion-faq details summary::-webkit-details-marker {
   display: none;
 }
 
+/* Plus/minus icon built from two bars; the vertical bar hides when open so a
+   minus remains (matches the source). */
+.accordion-faq details summary::before,
 .accordion-faq details summary::after {
   content: '';
   position: absolute;
   top: 50%;
-  right: 18px;
-  transform: translateY(-50%) rotate(135deg);
-  width: 6px;
-  height: 6px;
-  border: 2px solid;
-  border-width: 2px 2px 0 0;
-  transition: transform 0.2s;
+  right: 6px;
+  width: 14px;
+  height: 2px;
+  background-color: currentcolor;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.accordion-faq details summary::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.accordion-faq details summary::before {
+  transform: translateY(-50%);
 }
 
 .accordion-faq details[open] summary::after {
-  transform: translateY(-50%) rotate(-45deg);
+  opacity: 0;
+  transform: translateY(-50%) rotate(0deg);
 }
 
 .accordion-faq details .accordion-faq-item-body {
-  padding: 0 16px;
-}
-
-.accordion-faq details[open] .accordion-faq-item-body {
-  border-top: 1px solid #dadada;
-  background-color: var(--background-color);
+  padding: 0 0 20px;
 }
