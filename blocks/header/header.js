@@ -114,6 +114,38 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
  * here (form controls never live in the plain fragment).
  * @param {Element} navTools The tools section element
  */
+// Lazily fetch and cache the query-index once, so typing doesn't refetch.
+let searchIndexPromise;
+function loadSearchIndex() {
+  if (!searchIndexPromise) {
+    searchIndexPromise = fetch('/query-index.json')
+      .then((resp) => (resp.ok ? resp.json() : { data: [] }))
+      .then((json) => (Array.isArray(json.data) ? json.data : []))
+      .catch(() => []);
+  }
+  return searchIndexPromise;
+}
+
+/** Rank matches: title hits first, then description/tags; cap the list. */
+function findMatches(entries, query, limit = 5) {
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) return [];
+  return entries
+    .filter((e) => e.path && !/\/(nav|footer|search)$/.test(e.path))
+    .filter((e) => {
+      const hay = `${e.title || ''} ${e.description || ''} ${e.tags || ''}`.toLowerCase();
+      return terms.every((t) => hay.includes(t));
+    })
+    .slice(0, limit);
+}
+
+/**
+ * Builds the search control in the tools area. The fragment carries only a
+ * `:search:` token / placeholder; the interactive input + button are created
+ * here (form controls never live in the plain fragment). A live-results
+ * dropdown (typeahead) is shown as the user types.
+ * @param {Element} navTools The tools section element
+ */
 function decorateSearch(navTools) {
   if (!navTools) return;
   // Remove the placeholder text/icon the fragment used to mark the search slot.
@@ -135,13 +167,58 @@ function decorateSearch(navTools) {
   input.name = 'q';
   input.placeholder = 'SEARCH';
   input.setAttribute('aria-label', 'Search');
+  input.setAttribute('autocomplete', 'off');
 
   const submit = document.createElement('button');
   submit.type = 'submit';
   submit.className = 'nav-search-submit';
   submit.setAttribute('aria-label', 'Submit search');
 
-  form.append(label, input, submit);
+  // Live-results dropdown (hidden until there are matches).
+  const results = document.createElement('ul');
+  results.className = 'nav-search-results';
+  results.hidden = true;
+
+  const renderResults = (matches) => {
+    results.textContent = '';
+    if (!matches.length) {
+      results.hidden = true;
+      return;
+    }
+    matches.forEach((entry) => {
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = entry.path;
+      link.textContent = entry.title || entry.path;
+      li.append(link);
+      results.append(li);
+    });
+    results.hidden = false;
+  };
+
+  const onInput = async () => {
+    const query = input.value.trim();
+    if (query.length < 2) {
+      renderResults([]);
+      return;
+    }
+    const entries = await loadSearchIndex();
+    // Ignore stale responses if the field changed while awaiting.
+    if (input.value.trim() !== query) return;
+    renderResults(findMatches(entries, query));
+  };
+
+  input.addEventListener('input', onInput);
+  input.addEventListener('focus', onInput);
+  // Warm the index on first interaction.
+  input.addEventListener('focus', loadSearchIndex, { once: true });
+
+  // Hide the dropdown when focus leaves the search control.
+  form.addEventListener('focusout', (e) => {
+    if (!form.contains(e.relatedTarget)) results.hidden = true;
+  });
+
+  form.append(label, input, submit, results);
   navTools.append(form);
 }
 

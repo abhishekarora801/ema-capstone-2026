@@ -288,12 +288,58 @@ header nav .nav-tools {
 }
 
 header nav .nav-search {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
   min-width: 0;
   background-color: var(--light-color);
   padding: 8px 12px;
+}
+
+/* Live-results dropdown (typeahead) — dark panel under the search field. */
+header nav .nav-search-results {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 3;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 70vh;
+  overflow-y: auto;
+  background-color: var(--dark-color);
+  color: var(--background-color);
+}
+
+header nav .nav-search-results[hidden] {
+  display: none;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+header nav .nav-search-results li {
+  margin: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 15%);
+}
+
+header nav .nav-search-results li:last-child {
+  border-bottom: 0;
+}
+
+header nav .nav-search-results a:any-link {
+  display: block;
+  padding: 16px 20px;
+  color: var(--background-color);
+  font-weight: var(--bold-font-weight);
+  text-transform: none;
+  text-decoration: none;
+}
+
+header nav .nav-search-results a:hover,
+header nav .nav-search-results a:focus-visible {
+  background-color: rgb(255 255 255 / 10%);
+  text-decoration: underline;
 }
 
 header nav .nav-search-label {

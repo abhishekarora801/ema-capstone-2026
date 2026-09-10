@@ -1,0 +1,111 @@
+/* Search field on the results page — mirrors the header search style. */
+.search .search-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 480px;
+  margin: 0 0 24px;
+  padding: 8px 12px;
+  background-color: var(--light-color);
+}
+
+.search .search-form input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-size: var(--body-font-size-s);
+  text-transform: uppercase;
+}
+
+.search .search-form input:focus-visible {
+  outline: none;
+}
+
+.search .search-form button {
+  order: -1;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background-color: transparent;
+  background-image: url('/icons/search.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.search .search-summary {
+  margin: 0 0 24px;
+  font-weight: var(--bold-font-weight);
+}
+
+.search .search-message {
+  margin: 0;
+}
+
+/* Results grid — same card treatment as cards-teaser. */
+.search .search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.search .search-results > li {
+  background-color: var(--background-color);
+}
+
+.search .search-results > li > a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.search .search-result-image {
+  line-height: 0;
+}
+
+.search .search-results > li img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.search .search-result-body {
+  margin: 16px 0 0;
+}
+
+.search .search-result-title {
+  display: block;
+  margin: 0;
+  color: var(--text-color);
+  font-weight: var(--bold-font-weight);
+  text-transform: uppercase;
+}
+
+.search .search-result-description {
+  margin: 8px 0 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+@media (width >= 600px) {
+  .search .search-results {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .search .search-results {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
