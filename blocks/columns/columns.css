@@ -31,3 +31,49 @@
     order: unset;
   }
 }
+
+/* Locked / members-only variant: the teasers are premium content, so they are
+   rendered muted (grey) with a disabled-looking button and a lock icon on each
+   title — matching the source. */
+.columns.locked > div {
+  align-items: start;
+}
+
+.columns.locked,
+.columns.locked h1,
+.columns.locked h2,
+.columns.locked h3,
+.columns.locked h4,
+.columns.locked p {
+  color: #9b9b9b;
+}
+
+/* Lock glyph before each teaser title. */
+.columns.locked h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.columns.locked h2::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  background-color: currentcolor;
+  mask: url('/icons/lock.svg') center / contain no-repeat;
+}
+
+/* Disabled-looking grey button instead of the yellow accent. */
+.columns.locked a.button {
+  border-color: var(--inverse-color);
+  background-color: var(--inverse-color);
+  color: #9b9b9b;
+  pointer-events: none;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.columns.locked img {
+  filter: grayscale(35%);
+  opacity: 0.9;
+}
