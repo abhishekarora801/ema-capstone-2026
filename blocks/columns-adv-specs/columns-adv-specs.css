@@ -1,33 +1,44 @@
+/* Adventure spec table (Activity, Adventure Type, …). Matches the source:
+   each row is stacked — a small uppercase muted label above a bold value —
+   with a thin left divider bar and generous vertical rhythm. */
 .columns-adv-specs > div {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  padding: 0 0 0 20px;
+  margin-bottom: 28px;
+}
+
+.columns-adv-specs > div:last-child {
+  margin-bottom: 0;
+}
+
+/* Left divider bar per row. */
+.columns-adv-specs > div::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: 1px;
+  background-color: #dadada;
+}
+
+/* Label (first cell): small, uppercase, muted. */
+.columns-adv-specs > div > div:first-child p {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6d6d6d;
+}
+
+/* Value (second cell): bold, sits directly below the label. */
+.columns-adv-specs > div > div:last-child p {
+  margin: 4px 0 0;
+  font-weight: var(--bold-font-weight);
+  text-transform: uppercase;
 }
 
 .columns-adv-specs img {
-  width: 100%;
-}
-
-.columns-adv-specs > div > div {
-  order: 1;
-}
-
-.columns-adv-specs > div > .columns-adv-specs-img-col {
-  order: 0;
-}
-
-.columns-adv-specs > div > .columns-adv-specs-img-col img {
   display: block;
-}
-
-@media (width >= 900px) {
-  .columns-adv-specs > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
-  }
-
-  .columns-adv-specs > div > div {
-    flex: 1;
-    order: unset;
-  }
+  width: 100%;
 }

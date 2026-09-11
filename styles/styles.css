@@ -368,7 +368,11 @@ main > .section:first-of-type {
      the tabbed content fills the right column (matching the source). */
   body.adventure-detail main > .section {
     display: grid;
-    grid-template-columns: minmax(220px, 1fr) 2.5fr;
+
+    /* minmax(0, …) on both tracks so a full-bleed row (carousel/breadcrumb),
+       whose intrinsic content is viewport-wide, can't blow the tracks past the
+       section's max-width and cause horizontal overflow. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr);
     column-gap: 48px;
     max-width: var(--content-max-width);
     margin-inline: auto;
@@ -379,6 +383,10 @@ main > .section:first-of-type {
     max-width: none;
     margin: 0;
     padding: 0;
+
+    /* Grid items default to min-width:auto, which lets the tabs column grow
+       past its track to fit content and overflow the page. Let it shrink. */
+    min-width: 0;
   }
 
   /* Full-width rows: breadcrumb (1st), carousel, and the H1 title. */
@@ -386,6 +394,16 @@ main > .section:first-of-type {
   body.adventure-detail main > .section > .carousel-hero-wrapper,
   body.adventure-detail main > .section > .default-content-wrapper:nth-child(3) {
     grid-column: 1 / -1;
+  }
+
+  /* The carousel-hero wrapper is full-bleed (100vw + negative margins) which
+     assumes a viewport-spanning parent; inside this max-width grid that pushes
+     it past the page edge. Confine it to the grid row instead. */
+  body.adventure-detail main > .section > .carousel-hero-wrapper {
+    width: auto;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   /* Left sidebar: spec table + the share heading directly beneath it. */
