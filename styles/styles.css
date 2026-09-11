@@ -362,6 +362,47 @@ main > .section:first-of-type {
     align-self: start;
     margin-top: 4.75em;
   }
+
+  /* Adventure detail template: breadcrumb, carousel and title span full width;
+     the spec table (+ "Share this Adventure") sit in a narrow left sidebar and
+     the tabbed content fills the right column (matching the source). */
+  body.adventure-detail main > .section {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) 2.5fr;
+    column-gap: 48px;
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding: 0 32px;
+  }
+
+  body.adventure-detail main > .section > div {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Full-width rows: breadcrumb (1st), carousel, and the H1 title. */
+  body.adventure-detail main > .section > .default-content-wrapper:first-child,
+  body.adventure-detail main > .section > .carousel-hero-wrapper,
+  body.adventure-detail main > .section > .default-content-wrapper:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  /* Left sidebar: spec table + the share heading directly beneath it. */
+  body.adventure-detail main > .section > .columns-adv-specs-wrapper {
+    grid-column: 1;
+  }
+
+  body.adventure-detail main > .section > .columns-adv-specs-wrapper + .default-content-wrapper {
+    grid-column: 1;
+  }
+
+  /* Right column: the tabbed content, aligned to the top of the sidebar row. */
+  body.adventure-detail main > .section > .tabs-adventure-wrapper {
+    grid-column: 2;
+    grid-row: 4 / span 2;
+    align-self: start;
+  }
 }
 
 /* section metadata */
