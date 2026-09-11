@@ -139,6 +139,26 @@ function findMatches(entries, query, limit = 5) {
     .slice(0, limit);
 }
 
+// Localized "Search" placeholder keyed off the page language. The locale
+// lives in the URL as /{country}/{lang}/… (e.g. /de/de, /ch/fr); fall back to
+// the <html lang> and finally English.
+const SEARCH_PLACEHOLDERS = {
+  en: 'SEARCH',
+  de: 'SUCHEN',
+  fr: 'RECHERCHE',
+  it: 'RICERCA',
+  es: 'BUSCAR',
+};
+
+function searchPlaceholder() {
+  const seg = window.location.pathname.split('/').filter(Boolean);
+  // /{country}/{lang}/… → lang is the 2nd segment; else use <html lang>.
+  const lang = (seg[1] && seg[1].length === 2 ? seg[1] : document.documentElement.lang || 'en')
+    .slice(0, 2)
+    .toLowerCase();
+  return SEARCH_PLACEHOLDERS[lang] || SEARCH_PLACEHOLDERS.en;
+}
+
 /**
  * Builds the search control in the tools area. The fragment carries only a
  * `:search:` token / placeholder; the interactive input + button are created
@@ -165,7 +185,7 @@ function decorateSearch(navTools) {
   input.type = 'search';
   input.id = 'nav-search-input';
   input.name = 'q';
-  input.placeholder = 'SEARCH';
+  input.placeholder = searchPlaceholder();
   input.setAttribute('aria-label', 'Search');
   input.setAttribute('autocomplete', 'off');
 
@@ -302,6 +322,13 @@ function decorateUtility(navUtility) {
     toggle.addEventListener('click', () => {
       const open = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+    // Close the dropdown when clicking outside or pressing Escape.
+    document.addEventListener('click', (e) => {
+      if (!wrapper.contains(e.target)) toggle.setAttribute('aria-expanded', 'false');
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') toggle.setAttribute('aria-expanded', 'false');
     });
   }
 }

@@ -93,9 +93,24 @@ header nav .nav-locale-list {
   display: none;
 }
 
-/* Country-grouped dropdown: each row = flag + COUNTRY name + locale links */
-header nav .nav-locale-toggle[aria-expanded='true'] + .nav-locale-list,
-header nav .nav-locale:hover .nav-locale-list {
+/* Down-caret after the locale label; flips up when the dropdown is open. */
+header nav .nav-locale-toggle::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  margin-left: 2px;
+  border: solid currentcolor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s;
+}
+
+header nav .nav-locale-toggle[aria-expanded='true']::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+/* Country-grouped dropdown opens on click only (aria-expanded), not hover. */
+header nav .nav-locale-toggle[aria-expanded='true'] + .nav-locale-list {
   display: block;
   position: absolute;
   top: 100%;
