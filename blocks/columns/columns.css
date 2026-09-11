@@ -32,36 +32,48 @@
   }
 }
 
-/* Locked / members-only variant: the teasers are premium content, so they are
-   rendered muted (grey) with a disabled-looking button and a lock icon on each
-   title — matching the source. */
+/* Locked / members-only variant (matches the source): each teaser title is
+   dark, uppercase and bold with a yellow "pennant" + black padlock badge; the
+   description is uppercase grey; the CTA is a disabled grey button. */
 .columns.locked > div {
   align-items: start;
 }
 
-.columns.locked,
-.columns.locked h1,
-.columns.locked h2,
-.columns.locked h3,
-.columns.locked h4,
-.columns.locked p {
-  color: #9b9b9b;
-}
-
-/* Lock glyph before each teaser title. */
+/* Title: uppercase bold, dark, with the lock badge to its left. */
 .columns.locked h2 {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  font-size: var(--body-font-size-m);
+  font-weight: var(--bold-font-weight);
+  font-family: var(--body-font-family);
+  text-transform: uppercase;
+  color: var(--text-color);
 }
 
+/* Yellow pennant square with a black padlock glyph centered on it. */
 .columns.locked h2::before {
   content: '';
   flex: 0 0 auto;
-  width: 18px;
-  height: 18px;
-  background-color: currentcolor;
-  mask: url('/icons/lock.svg') center / contain no-repeat;
+  width: 26px;
+  height: 26px;
+  background-color: var(--accent-color);
+  background-image: url('/icons/lock.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 15px 15px;
+
+  /* pennant notch at the bottom */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+}
+
+/* Description line: uppercase, muted grey (matches the source). */
+.columns.locked h2 + p,
+.columns.locked p:not(.button-wrapper) {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: var(--body-font-size-s);
+  color: #6d6d6d;
 }
 
 /* Disabled-looking grey button instead of the yellow accent. */
@@ -70,10 +82,4 @@
   background-color: var(--inverse-color);
   color: #9b9b9b;
   pointer-events: none;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-.columns.locked img {
-  filter: grayscale(35%);
-  opacity: 0.9;
 }
