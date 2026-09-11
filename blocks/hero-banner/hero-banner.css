@@ -8,6 +8,7 @@
   min-height: 300px;
   display: flex;
   align-items: flex-end;
+  justify-content: center;
 }
 
 /* Background image fills the banner */
@@ -25,12 +26,14 @@
   height: 100%;
 }
 
-/* Content sits in a white card at the bottom-left, with dark text. */
+/* Content sits in a white card centered at the bottom of the image, spanning
+   the content width (matching the source), with dark text. */
 .hero-banner > div:last-child {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 24px;
+  padding: 32px;
   background-color: var(--background-color);
-  margin: 0 0 0 24px;
-  padding: 24px 32px;
-  max-width: 640px;
 }
 
 .hero-banner > div:last-child h1,
@@ -62,8 +65,9 @@
 }
 
 @media (width >= 900px) {
-  .hero-banner > div:last-child {
-    margin-left: 32px;
+  .hero-banner:not(.no-image) > div:last-child {
+    margin: 0 32px;
+    padding: 40px 48px;
   }
 
   .hero-banner.no-image {
