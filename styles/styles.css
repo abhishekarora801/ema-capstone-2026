@@ -362,6 +362,65 @@ main > .section:first-of-type {
     align-self: start;
     margin-top: 4.75em;
   }
+
+  /* Adventure detail template: breadcrumb, carousel and title span full width;
+     the spec table (+ "Share this Adventure") sit in a narrow left sidebar and
+     the tabbed content fills the right column (matching the source). */
+  body.adventure-detail main > .section {
+    display: grid;
+
+    /* minmax(0, …) on both tracks so a full-bleed row (carousel/breadcrumb),
+       whose intrinsic content is viewport-wide, can't blow the tracks past the
+       section's max-width and cause horizontal overflow. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr);
+    column-gap: 48px;
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding: 0 32px;
+  }
+
+  body.adventure-detail main > .section > div {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+
+    /* Grid items default to min-width:auto, which lets the tabs column grow
+       past its track to fit content and overflow the page. Let it shrink. */
+    min-width: 0;
+  }
+
+  /* Full-width rows: breadcrumb (1st), carousel, and the H1 title. */
+  body.adventure-detail main > .section > .default-content-wrapper:first-child,
+  body.adventure-detail main > .section > .carousel-hero-wrapper,
+  body.adventure-detail main > .section > .default-content-wrapper:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  /* The carousel-hero wrapper is full-bleed (100vw + negative margins) which
+     assumes a viewport-spanning parent; inside this max-width grid that pushes
+     it past the page edge. Confine it to the grid row instead. */
+  body.adventure-detail main > .section > .carousel-hero-wrapper {
+    width: auto;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Left sidebar: spec table + the share heading directly beneath it. */
+  body.adventure-detail main > .section > .columns-adv-specs-wrapper {
+    grid-column: 1;
+  }
+
+  body.adventure-detail main > .section > .columns-adv-specs-wrapper + .default-content-wrapper {
+    grid-column: 1;
+  }
+
+  /* Right column: the tabbed content, aligned to the top of the sidebar row. */
+  body.adventure-detail main > .section > .tabs-adventure-wrapper {
+    grid-column: 2;
+    grid-row: 4 / span 2;
+    align-self: start;
+  }
 }
 
 /* section metadata */
