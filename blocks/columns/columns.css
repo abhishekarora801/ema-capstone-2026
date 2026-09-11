@@ -39,11 +39,14 @@
   align-items: start;
 }
 
-/* Title: uppercase bold, dark, with the lock badge to its left. */
+/* Title: uppercase bold, dark, with the lock badge to its left. The title
+   gets left padding to make room for the absolutely-positioned badge. */
 .columns.locked h2 {
+  position: relative;
+  padding-left: 42px;
+  min-height: 44px;
   display: flex;
   align-items: center;
-  gap: 10px;
   font-size: var(--body-font-size-m);
   font-weight: var(--bold-font-weight);
   font-family: var(--body-font-family);
@@ -51,20 +54,30 @@
   color: var(--text-color);
 }
 
-/* Yellow pennant square with a black padlock glyph centered on it. */
+/* Yellow downward-pointing pennant (ribbon). */
 .columns.locked h2::before {
   content: '';
-  flex: 0 0 auto;
-  width: 26px;
-  height: 26px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 38px;
   background-color: var(--accent-color);
-  background-image: url('/icons/lock.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 15px 15px;
 
-  /* pennant notch at the bottom */
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+  /* full-width top, tapering to a point at the bottom-centre */
+  clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%);
+}
+
+/* Black padlock glyph overlapping the pennant. */
+.columns.locked h2::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--text-color);
+  mask: url('/icons/lock.svg') center / contain no-repeat;
 }
 
 /* Description line: uppercase, muted grey (matches the source). */
@@ -82,4 +95,11 @@
   background-color: var(--inverse-color);
   color: #9b9b9b;
   pointer-events: none;
+}
+
+/* Members-only images are shown desaturated/dimmed (locked preview). */
+/* stylelint-disable-next-line no-descending-specificity */
+.columns.locked img {
+  filter: grayscale(100%);
+  opacity: 0.85;
 }
