@@ -312,10 +312,20 @@ function decorateUtility(navUtility) {
     toggle.type = 'button';
     toggle.className = 'nav-locale-toggle';
     toggle.setAttribute('aria-expanded', 'false');
-    const currentFlag = localeList.querySelector('.nav-locale-country .nav-locale-flag');
-    const currentLocale = localeList.querySelector('.nav-locale-options a');
+
+    // Reflect the current page's locale (from the /{country}/{lang}/ prefix)
+    // rather than always showing the first entry. Match the option link whose
+    // href is that locale prefix; fall back to the first option (EN-US).
+    const seg = window.location.pathname.split('/').filter(Boolean);
+    const currentPrefix = seg.length >= 2 ? `/${seg[0]}/${seg[1]}` : '';
+    const optionLinks = [...localeList.querySelectorAll('.nav-locale-options a')];
+    const activeLink = optionLinks.find((a) => {
+      const path = new URL(a.href, window.location).pathname.replace(/\/$/, '');
+      return path === currentPrefix;
+    }) || optionLinks[0];
+    const currentFlag = activeLink?.closest('.nav-locale-country')?.querySelector('.nav-locale-flag');
     const flagMarkup = currentFlag ? `<span class="nav-locale-toggle-flag">${currentFlag.outerHTML}</span>` : '';
-    toggle.innerHTML = `${flagMarkup}<span>${currentLocale ? currentLocale.textContent.trim() : 'EN-US'}</span>`;
+    toggle.innerHTML = `${flagMarkup}<span>${activeLink ? activeLink.textContent.trim() : 'EN-US'}</span>`;
 
     wrapper.append(toggle, localeList);
     navUtility.append(wrapper);
