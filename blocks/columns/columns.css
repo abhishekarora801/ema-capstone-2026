@@ -34,7 +34,14 @@
 
 /* Locked / members-only variant (matches the source): each teaser title is
    dark, uppercase and bold with a yellow "pennant" + black padlock badge; the
-   description is uppercase grey; the CTA is a disabled grey button. */
+   description is uppercase grey; the CTA is a disabled grey button. A thin
+   full-width rule separates it from the "Members Only" intro above. */
+.columns.locked {
+  border-top: 1px solid #dadada;
+  padding-top: 48px;
+  margin-top: 32px;
+}
+
 .columns.locked > div {
   align-items: start;
 }
